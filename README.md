@@ -22,7 +22,7 @@ for file in *.zip; do unzip "$file" -d "${file%.zip}"; done
 
 ### 模型权重下载
 ```bash
-# 下载 FM9G4B-V 模型权重
+# 下载 FM9G4B-V 模型
 cd "$DATA_BASE_DIR/weights"
 wget https://thunlp-model.oss-cn-wulanchabu.aliyuncs.com/FM9G4B-V.tar.gz
 tar -zxvf FM9G4B-V.tar.gz
@@ -32,12 +32,18 @@ cd "$DATA_BASE_DIR/weights"
 git clone https://hf-mirror.com/Qwen/Qwen2.5-VL-7B-Instruct
 ```
 
-### 新建环境
+### 复制仓库
 ```bash
 cd "$WORKSPACE_DIR"
 git clone https://github.com/KingVec7r/Geo9G
 cd Geo9G
 
+# FM9G4B-V 目录没有权重文件，从下载的 FM9G4B-V 模型 copy
+cp "$DATA_BASE_DIR/weights/FM9G4B-V/pytorch_model.bin" FM9G4B-V
+```
+
+### 新建环境
+```bash
 # geo9g 用于 fm9g4b-v 训练和推理
 conda create -n geo9g python=3.10
 conda activate geo9g
